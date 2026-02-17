@@ -1,10 +1,12 @@
 import React from "react";
-import { Box, Typography, Link, Stack, Button } from "@mui/material";
+import { Box, Typography, Link, Stack, Button} from "@mui/material";
 import telegram from "../assets/telegram.svg";
 import vk from "../assets/vk.svg";
-
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   const urls = [
                 "https://t.me/daryareine",
                 "https://vk.com/ks.daria",
@@ -45,11 +47,25 @@ export default function Footer() {
           <Box>
             <Typography sx={{ fontWeight: 600, mb: 2, color: "gray.800" }}>Company</Typography>
             <Stack spacing={1}>
-              <Link href="#" underline="none" color="inherit">Home</Link>
-              <Link href="#" underline="none" color="inherit">About us</Link>
-              <Link href="#" underline="none" color="inherit">Contact us</Link>
-              <Link href="#" underline="none" color="inherit">Privacy policy</Link>
-            </Stack>
+                <Link
+                    component={RouterLink}   
+                    to="/"                    
+                    underline="none"
+                    color="inherit"
+                    onClick={() => window.scrollTo(0, 0)} 
+                >
+                  Home
+                </Link>
+                <Link component={RouterLink} to="/about" underline="none" color="inherit">
+                  About us
+                </Link>
+                <Link component={RouterLink} to="/contact" underline="none" color="inherit">
+                  Contact us
+                </Link>
+                <Link component={RouterLink} to="/privacy" underline="none" color="inherit">
+                  Privacy policy
+                </Link>
+              </Stack>
           </Box>
 
           <Box>

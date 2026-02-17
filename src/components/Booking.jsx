@@ -95,7 +95,7 @@ return(
                 renderInput={(params)=>(
                     <TextField
                         {...params}
-                        label="Destination"
+                        label="Направление"
                         fullWidth
                         InputProps={{
                             ...params.InputProps,
@@ -116,7 +116,7 @@ return(
                 sx={{
                     flex:1.5,
                 }}
-                label="Arrival"
+                label="Заезд"
                 value={checkIn}
                 onChange={(newValue)=>setCheckIn(newValue)}
                 minDate = {dayjs()}
@@ -128,13 +128,17 @@ return(
                 sx={{
                         flex:1.5,
                     }}
-                label="Departure"
+
+
+                label="Выезд"
+
                 value={checkOut}
                 onChange={(newValue)=>setCheckOut(newValue)}
                 minDate = {checkIn ||dayjs()}
                 slotProps={{textField:{fullWidth:true}}}
             
             />
+
             {/*Guests*/}
             <TextField
                 sx={{
@@ -155,6 +159,24 @@ return(
                      </MenuItem>   
                 ))}
             </TextField>
+
+            {/* Guests */}
+                <TextField
+                    sx={{ flex: 1 }}
+                    select
+                    label="Пассажир"
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                    fullWidth
+                >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                        <MenuItem key={num} value={num}>
+                            {num} Пассажир{num > 1 ? 'а' : ''}
+                        </MenuItem>
+                    ))}
+                </TextField>
+
+
             <Button
                 variant="contained"
                 onClick={handleSearch}
@@ -166,7 +188,11 @@ return(
 
                 }}    
             >
-                Search
+
+
+
+                Поиск
+
             </Button>
         </Box>
     </LocalizationProvider>
