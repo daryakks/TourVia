@@ -18,7 +18,7 @@ export default function Footer() {
         px: { xs: 3, md: 8, lg: 12, xl: 16 },
         pt: 8,
         w: "100%",
-        bgcolor:"#b4aeae",
+        bgcolor:"#9b9797",
         
       }}
     >
