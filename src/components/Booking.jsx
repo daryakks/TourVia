@@ -139,27 +139,6 @@ return(
             
             />
 
-            {/*Guests*/}
-            <TextField
-                sx={{
-                    flex:1,
-                }}
-                select
-                label="Guests"
-                value={guests}
-                onChange={(e)=>setGuests(e.target.value)}
-                fullWidth
-            >
-                {[1,2,3,4,5,6].map((num)=>(
-                    <MenuItem 
-                        key={num}
-                        value={num}
-                     >
-                        {num} Guests {num >1 && 's'}
-                     </MenuItem>   
-                ))}
-            </TextField>
-
             {/* Guests */}
                 <TextField
                     sx={{ flex: 1 }}

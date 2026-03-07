@@ -11,7 +11,7 @@ const TourCard = ({ tour }) => {
   return (
     <Card
       onClick={() => {
-        navigate(`/experience/${tour.id}`);
+        navigate(`/experience/`);
         window.scrollTo(0, 0);
       }}
       sx={{

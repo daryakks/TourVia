@@ -2,13 +2,13 @@ import { Typography, Card, Box, CardMedia, Chip, CardContent, Button } from "@mu
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fallbackImage } from "../assets/roomsDummyData";
 
 const HotelCard = ({ room, index }) => {
   const roomImage = room.images?.[0] || fallbackImage;
   const hotelImage = room.hotel?.image || fallbackImage;
-
+  const navigate = useNavigate();
   return (
     <Card
       component={Link}
@@ -94,6 +94,12 @@ const HotelCard = ({ room, index }) => {
           <Button
             variant="contained"
             size="small"
+            onClick={(e) => {
+              e.preventDefault();   // отменяет Link
+              e.stopPropagation();  // останавливает всплытие
+              navigate(`/rooms/`); // страница отеля
+              window.scrollTo(0, 0);
+            }}
             sx={{
               textTransform: "none",
               bgcolor: "#35618e",

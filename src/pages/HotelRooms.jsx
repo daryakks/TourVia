@@ -15,16 +15,15 @@ const HotelRooms = () =>{
     const navigate = useNavigate();
     const [openFilters, setOpenFilters] = useState(false);
     const {
-            filteredRooms,
-            selectedTypes,
-            selectedPrices,
-            sortOption,
-            handleTypeChange,
-            handlePriceChange,
-            handleSortChange,
-            handleClearFilters,
+        filteredRooms,
+        selectedType,
+        selectedPrice,
+        sortOption,
+        handleTypeChange,
+        handlePriceChange,
+        handleSortChange,
+        handleClearFilters,
         } = useRoomFilters(roomsDummyData);
-
    
 
     return (
@@ -41,7 +40,7 @@ const HotelRooms = () =>{
 
                 pt: {
                 xs: 7,   
-                md: 8.75 
+                md: 8.75,
                 },
 
                 px: {
@@ -104,8 +103,8 @@ const HotelRooms = () =>{
                         display:"flex",
                         flexDirection:{xs:"column", md:"row"},
                         alignItems:"flex-start",
-                        py: 8,
-                        gap:6,
+                        py: 4,
+                        gap:5,
                         borderBottom: "1px solid",
                         "&:last-of-type": {
                             pb: 30,                                   
@@ -129,7 +128,7 @@ const HotelRooms = () =>{
                                 maxWidth:360,
                                 boxShadow:3,
                                 borderRadius:4,
-                                mt:2,
+                                mt:1,
                                 height: 260,
                                 
                             
@@ -142,7 +141,8 @@ const HotelRooms = () =>{
                             },
                             display:"flex",
                             flexDirection:"column",
-                            gap: 1,
+                            gap:0.5,
+                        
                             color:'#fff',
                             
                         }}
@@ -169,7 +169,7 @@ const HotelRooms = () =>{
                             <Box display="flex" alignItems="center" gap={0.5}>
                                 <StarIcon sx={{ color: "#fbc02d", fontSize: 18 }} />
                                 <Typography fontSize={14} fontWeight={500} color="#FFF">
-                                    {room.rating} 
+                                    {room.rating}, {room.reviewsCount}
                                 </Typography>
                             </Box>
                             <Box display="flex" alignItems="center" gap={0.5}>
@@ -208,14 +208,17 @@ const HotelRooms = () =>{
                 ))}
             </Box>
         {/* Фильтры*/}
-        <Box
-             sx={{
-                backgroundColor: "#f6f3f3",
-                width: 320, 
-                border: "1px solid #D1D5DB",
-                color: "#4B5563", 
-                mb: { xs: 4, lg: 0 }, 
-                mt: { xs: 0, lg: 16 } 
+       <Box
+            sx={{
+                backgroundColor: "#e6dddd",
+                width: 300,
+                border: "2px solid #79787b",
+                borderRadius: 7.5,
+                color: "#4B5563",
+                mt: { xs: 0, lg: 11 },
+                px: 1,
+                 py: 1 ,
+                
             }}
         >
             <Box 
@@ -223,8 +226,8 @@ const HotelRooms = () =>{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    px: 5,      
-                    py: 2.5,     
+                    px: 2,      
+                    py: 1.5,     
                     borderBottom: { xs: "none", lg: "1px solid" },
                     borderColor: "grey.300",
 
@@ -237,28 +240,129 @@ const HotelRooms = () =>{
                 <Typography
                     sx={{
                     fontSize: 16,          
-                    fontWeight: 500,      
-                    color: "text.primary", 
+                    fontWeight: 600,      
+                    color: "#464141", 
                     }}
                 >
                     ФИЛЬТРЫ
                 </Typography>
-            </Box>
-            <Box 
-                sx={{
-                    fontSize: 12, // text-xs
-                    cursor: "pointer",
-                }}
-            >
+            
                 <Box 
                 onClick={()=>setOpenFilters(!openFilters)}
                 sx={{ display: { xs: "block", lg: "none" } }}>
                     {openFilters ? 'СКРЫТЬ':'ПОКАЗАТЬ'}
                 </Box>
-                <Box sx={{ display: { xs: "none", lg: "block" } }}>
+                <Typography
+                onClick={handleClearFilters}
+                sx={{ 
+                    display: { xs: "none", lg: "block" },
+                    fontSize: 14,
+                    cursor: "pointer",
+                    color:"#686666",
+                    "&:hover":{color:"black"},
+
+                    }}>
                     СБРОСИТЬ
-                </Box>
+                </Typography>
             </Box>
+            <Box
+                sx={{
+                    display: {
+                    xs: openFilters ? "flex" : "none",
+                    lg: "flex",
+                    },
+                    flexDirection: "column",
+                    px: 1,
+                }}
+            >
+            {/*Популярные фильтры*/}
+            <Typography fontWeight={600} mb={0.5} mt={2} ml={2} color="#352d2d" fontSize={15}>
+                Популярные фильтры
+            </Typography>
+            {[
+                "Полулюкс",
+                "Комфорт",
+                "С видом на океан",
+                "Комфорт+",
+                "Президентский номер",
+            ].map((type)=>(
+                <FormControlLabel
+                    key={type}
+                    control={
+                        <Checkbox
+                        checked={selectedType.includes(type)}
+                        onChange={()=> handleTypeChange(type)}
+                        />
+                    }
+                    label={type}
+                    sx={{
+                        mb:0.2,
+                        ml: 1,
+                        "& .MuiFormControlLabel-label": {
+                        fontSize: 14,
+                        fontWeight: 400,
+                        color: "#4a4444",
+                        
+                        },
+                    }}
+                />
+            ))}
+            {/* Цена*/}
+            <Typography fontWeight={600} mt={2} mb={0.5} ml={2} color="#352d2d" fontSize={15}>
+                Цена
+            </Typography>
+             {["2500 - 15000", "15000-25000", "25000+"].map((range) => (
+                <FormControlLabel
+                    key={range}
+                    control={
+                        <Checkbox
+                        checked={selectedPrice.includes(range)}
+                        onChange={() =>handlePriceChange(range)}
+                        />
+                    }
+                    label={range}
+                    sx={{mb:0.2,
+                        ml:1,
+                        "& .MuiFormControlLabel-label": {
+                        fontSize: 14,
+                        fontWeight: 400,
+                        color: "#4a4444",
+                        },
+                        
+                    }}
+                />
+             ))}
+             {/*сортировка*/}
+             <Typography fontWeight={600} mt={2} mb={0.5} ml={2} color="#352d2d" fontSize={15}>
+                Сортировать по 
+             </Typography>
+             {[
+                {label:"По убыванию", value:"low"},
+                {label: "По возврастанию", value:"high"},
+             ].map((option)=>(
+                <FormControlLabel
+                    key={option.value}
+                    control={
+                        <Checkbox
+                        checked={sortOption === option.value}
+                        onChange={() =>
+                        handleSortChange(sortOption === option.value ? "" : option.value)
+                        }
+                    />
+                    }
+                    label={option.label}
+                    sx={{
+                        mb:0.2,
+                        ml:1,
+                        "& .MuiFormControlLabel-label": {
+                        fontSize: 14,
+                        fontWeight: 400,
+                        color: "#4a4444",
+                        },
+                    }}
+                />
+             ))}
+             </Box>
         </Box>
         
         </Box>
